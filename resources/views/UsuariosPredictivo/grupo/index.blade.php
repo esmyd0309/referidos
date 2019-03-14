@@ -30,7 +30,7 @@
                                     </select>
                                 </div>
                                 <center> <button type="submit" class="btn btn-danger  btn-sm">{{ __('Buscar') }}</button> |||
-                            <a href="{{ route('usuarios.index') }}" class="btn btn-success btn-sm">Volver</a>
+                            <a href="{{ route('home') }}" class="btn btn-success btn-sm">Volver</a>
                         </center>
                     </div>
             </div>

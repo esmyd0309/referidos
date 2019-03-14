@@ -26,10 +26,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                        <a class="navbar-brand" href="{{ url('http://192.168.1.76/agc/vicidial.php') }}"> <img src="http://192.168.1.107/ventas/public/img/predictivo.png" width="100" height="100" class="rounded-pill" title="PREDICTIVO: SISTEMA DE MARCACIÓN"></a><p>Predictivo</p>
+                        <a class="navbar-brand " align="justify " href="{{ route('archivospublic') }}"> <img src="http://192.168.1.107/ventas/public/img/descarga.png" width="70" height="70" class="rounded-pill "  title="Descargas de archivos"></a><p>ARCHIVOS</p>
+                        
                         </div>
                         <div class="col-sm">
-                       
+                        <a class="navbar-brand" href="{{ url('http://192.168.1.76/agc/vicidial.php') }}"> <img src="http://192.168.1.107/ventas/public/img/predictivo.png" width="100" height="100" class="rounded-pill" title="PREDICTIVO: SISTEMA DE MARCACIÓN"></a><p>Predictivo</p>
                         </div>
                         <div class="col-sm">
                         

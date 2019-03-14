@@ -39,7 +39,7 @@
                         @endforeach
                         </div>
                         <div class="col-sm">
-                        
+                        <a class="navbar-brand " align="justify " href="{{ url('http://192.168.1.107/ventas/public/archivospublic') }}"> <img src="http://192.168.1.107/ventas/public/img/descarga.png" width="70" height="70" class="rounded-pill "  title="Descargas de archivos"></a><p>ARCHIVOS</p>
                         </div>
                         <div class="col-sm">
     
