@@ -75,7 +75,7 @@
                                 </li>
                             @endif
                         @else
-                        <a class="navbar-brand" href="{{ url('home') }}" >
+                        <a class="navbar-brand" href="{{ url('http://192.168.1.107/ventas/public/welcome') }}" >
                         <img src="http://192.168.1.107/ventas/public/img/home.png" width="40" height="35" class="rounded-pill">
                 </a>
                

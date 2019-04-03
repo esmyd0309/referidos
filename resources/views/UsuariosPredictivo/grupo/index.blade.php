@@ -11,8 +11,9 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card bg-info   ">
-                <div class="card-header">Actualizar Extensiones</div>
-               
+                <div class="card-header">Actualizar Extensiones <a href="{{ url('http://192.168.1.107/ventas/public/asignacionpuesto') }}" 
+                class="btn btn-sm btn-warning">Asignación Masiva</a></div>
+                
                     <form method="POST" action="{{ route('grupo.proc') }}">
                         @csrf
                                 <div class="form-group">

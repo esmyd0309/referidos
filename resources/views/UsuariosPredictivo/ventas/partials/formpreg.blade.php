@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Actualizar Extension</div>
-
+               
                 <div class="card-body">
                         <div class="form-group">
                             {{ form::label('user', 'user') }}

@@ -58,7 +58,7 @@ class VicidialListTMPController extends Controller
         $de = $request->lotes;
         $sacar = $request->lotes2;
         $marca = $request->marca;
-       // dd($de);
+        //dd($request);
 
         $ELINAR = DB::connection('asterisk')->statement
         ("
@@ -111,7 +111,7 @@ class VicidialListTMPController extends Controller
         
         ");
       
-       
+       // dd($INSERTAR);
         $cantidad = DB::connection('asterisk')->select("SELECT COUNT(STATUS) AS CANTIDAD FROM CMP"); 
          
         $status = DB::connection('asterisk')->select("SELECT distinct(STATUS) AS status FROM CMP"); 

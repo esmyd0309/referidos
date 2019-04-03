@@ -76,7 +76,7 @@ Route::post('/usuarios/gru', 'UserPredictivosController@index')->name('grupo.ac'
 Route::resource('archives', 'ArchiveController');
 Route::get('media/{id}','ArchiveController@ver')->name('media.ver');
 
-
+/**procesos sistemas */
 Route::resource('vicidial', 'VicidialListTMPController');
 Route::post('/vicidial/storecobranza', 'VicidialListTMPController@storecobranza')->name('vicidial.storecobranza');
 Route::post('/vicidial/pre', 'VicidialListTMPController@pre')->name('vicidial.pre');
