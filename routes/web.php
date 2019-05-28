@@ -85,3 +85,5 @@ Route::get('log_lis', 'VicidialListTMPController@log_lis')->name('log_lis');
 Route::get('ventas', 'VicidialListTMPController@ventas')->name('ventas');
 Route::get('cobranza', 'VicidialListTMPController@cobranza')->name('cobranza');
 
+/**clientes cerrados cobranza */
+Route::get('cobranza/sii', 'VicidialListTMPController@Clientescerrados')->name('cobranza.cerrados');

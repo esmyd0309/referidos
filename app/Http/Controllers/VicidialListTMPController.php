@@ -10,6 +10,7 @@ use App\Troncal;
 use App\Logpredictivo;
 use Illuminate\Http\Request;
 use DB;
+use App\DAMPLUScompromisos;
 class VicidialListTMPController extends Controller
 {
     /**
@@ -25,9 +26,9 @@ class VicidialListTMPController extends Controller
 
     public function ventas()
     {
-       // $lotes = Lists::orderBy('list_id', 'ASC')->get();
+       
         $lotes = DB::connection('asterisk')->select("SELECT list_id,list_name FROM vicidial_lists WHERE list_id NOT LIKE '8%' ORDER BY list_id ASC"); 
-        //dd($lotes);
+        
         return view('sistemas.index',compact('lotes'));
  
 
@@ -173,51 +174,7 @@ class VicidialListTMPController extends Controller
         ->with('info', ' Loco se Ejecuto con  Éxito');
     }
     
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\vicidial_list_TMP  $vicidial_list_TMP
-     * @return \Illuminate\Http\Response
-     */
-    public function show(vicidial_list_TMP $vicidial_list_TMP)
-    {
-           
-     
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\vicidial_list_TMP  $vicidial_list_TMP
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(vicidial_list_TMP $vicidial_list_TMP)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\vicidial_list_TMP  $vicidial_list_TMP
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, vicidial_list_TMP $vicidial_list_TMP)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\vicidial_list_TMP  $vicidial_list_TMP
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(vicidial_list_TMP $vicidial_list_TMP)
-    {
-        //
-    }
+    
     
     /**
      * Display a listing of the resource.
@@ -329,5 +286,43 @@ class VicidialListTMPController extends Controller
 
     }
 
+    public function Clientescerrados(Request $request)
+    {
+            /**sacar clientes con estados cerrados del reporte cartera */
+        $clientes = DB::connection('cobranza')->select
+        ("
+        select Identificacionc from REPORT_CARTERA WHERE GEST20 IN ('COMPROMISO','LIQUIDADO','RECAUDACION','SEPARADO','PAGO_MAY2019','AUDITORIA','RECAUDACION PTT')
+        OR  IdAgentec in ('AUDITORIA') 
+        OR  AREA in ('SAC_ESPECIAL') or Identificacionc in (SELECT Identificacion FROM  tbRegistroLlamada  where IdRespuesta in ('14','24','68','69','64','67','66','70') and FecRegistro >  convert(date,getdate()))
+        ");
+            /**trumcar la tabla temporal  */
+        $list = DB::connection('asterisk')->select(" TRUNCATE TABLE A_DAMPLUScompromisos "); 
+            
+        /**almacenar en la tabla temporal los clientes */
+        foreach($clientes as $clientesss){
+            $list =  new  DAMPLUScompromisos();
+            //dd($clientesss->Identificacionc);
+            $list->first_name = $clientesss->Identificacionc;
+            $list->save();
+            
+        }
+      
+            /**trumcar la tabla temporal  */
+            $list1 = DB::connection('asterisk')->select(" DROP TABLE A_DAMPLUSlistas "); 
+            $list2 = DB::connection('asterisk')->select(" CREATE TABLE A_DAMPLUSlistas SELECT list_id from vicidial_lists where list_id like '81%' and active='Y' "); 
+            $list3 = DB::connection('asterisk')->select(" DROP TABLE A_DAMPLUScompromisosEliminar ");
+            $list4 = DB::connection('asterisk')->select("CREATE TABLE A_DAMPLUScompromisosEliminar 
+                                                        SELECT first_name 
+                                                        FROM vicidial_list 
+                                                        Where list_id in (select list_id from A_DAMPLUSlistas ) 
+                                                        and first_name in (SELECT first_name from A_DAMPLUScompromisos)
+                                                        and  status in ('NEW','NA','A','DROP','CALLBK','CBHOLD') ");
+            $list5 = DB::connection('asterisk')->select("UPDATE vicidial_list SET `status`='0'  WHERE list_id in (select list_id from A_DAMPLUSlistas) 
+            and first_name in (SELECT first_name from A_DAMPLUScompromisosEliminar) 
+            AND  NOT status in ('CMP','CMPT')");
 
+            return redirect()->back()
+            ->with('info', ' Proceso de sacar los compromisos se Ejecuto con  Éxito');
+      
+    }
 }

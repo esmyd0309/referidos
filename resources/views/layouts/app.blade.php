@@ -127,7 +127,7 @@
   <a href="#"> gregorioenrique14@gmail.com</a>
 </div>
 <!-- Copyright -->
-
+@yield('script')
 </footer>
 
 

@@ -107,7 +107,7 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.1.203'),
+            'host' => env('DB_HOST', '192.168.1.100'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'sii_callcenter'),
             'username' => env('DB_USERNAME', 'sii'),
@@ -115,6 +115,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'TrustServerCertificate' => 'yes',
+            'instance' => 'MSSQLSERVER2008'
         ],
 
         'logpredictivo' => [
@@ -129,6 +131,17 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'cobranza' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_COBRANZAHOST', '192.168.1.100'),
+            'port' => env('DB_COBRANZAPORT', '1433'),
+            'database' => env('DB_COBRANZADATABASE', 'sii_cobranza'),
+            'username' => env('DB_COBRANZAUSERNAME', 'sii'),
+            'password' => env('DB_COBRANZAPASSWORD', '123'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
   
 
        /* 'comments'  => [
